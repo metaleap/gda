@@ -12,7 +12,7 @@ import (
 	"time"
 )
 
-const userAgent = "Phil's personal 3D asset manager / browser"
+const userAgent = "My humble asset manager / browser"
 
 var (
 	httpClient http.Client
@@ -29,6 +29,7 @@ func main() {
 	}
 
 	for _, asset_type := range []string{"models", "textures"} {
+		time.Sleep(time.Millisecond * 321)
 		dir_path := "/home/_/gda/polyhaven_" + asset_type
 		dir_path_tags, dir_path_cats := filepath.Join(dir_path, "_by_tag"), filepath.Join(dir_path, "_by_cat")
 		for _, dir_path := range []string{dir_path, dir_path_cats, dir_path_tags} {
@@ -49,6 +50,7 @@ func main() {
 			panic(err)
 		}
 		for asset_id := range assets {
+			time.Sleep(time.Millisecond * 321)
 			resp_files, err := client.GetFilesIdWithResponse(context.Background(), asset_id)
 			if err != nil {
 				panic(err)
@@ -146,6 +148,7 @@ func If[T any](b bool, t T, f T) T {
 }
 
 func downloadFileTo(srcUrl string, dstFilePath string, md5Hash string) error {
+	time.Sleep(time.Millisecond * 321)
 	data_local, _ := os.ReadFile(dstFilePath)
 	if len(data_local) > 0 {
 		if hash_local := hashMd5(data_local); hash_local == md5Hash {
